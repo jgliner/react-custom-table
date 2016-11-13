@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
   entry: [
     'webpack-hot-middleware',
-    './src/index'
+    path.join(__dirname, '/index.js')
   ],
   output: {
     path: path.join(__dirname, '/public'),

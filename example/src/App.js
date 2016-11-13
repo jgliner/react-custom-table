@@ -1,5 +1,9 @@
 import React from 'react';
 
+import SortableTable from '../../src/SortableTable.js';
+
+import tableExampleData from './tableExampleData.js';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -11,6 +15,8 @@ class App extends React.Component {
     return (
       <div className="example-parent-component">
         <h1>Suh Dude</h1>
+        <br />
+        <SortableTable tableData={tableExampleData} />
       </div>
     )
   }

@@ -2,7 +2,7 @@ require("babel-polyfill");
 require("babel-register");
 
 import React from 'react';
-import { sortBy } from 'lodash';
+import { orderBy } from 'lodash';
 
 import SortableTableColumnToggle from './SortableTableColumnToggle.js';
 
@@ -42,9 +42,10 @@ class SortableTable extends React.Component {
     let listChanged = this.state.colCount !== nextState.colCount;
     let listClicked = this.state.listHidden !== nextState.listHidden;
     let listSorted =  this.state.sortOnCol !== nextState.sortOnCol;
+    let listDirChanged =  this.state.asc !== nextState.asc;
     // console.log(this.state.colCount, '!==', nextState.colCount)
-    console.log(listChanged || listClicked || listSorted ? 're-rendering' : 'did not re-render')
-    return listChanged || listClicked || listSorted;
+    console.log(listChanged || listClicked || listSorted || listDirChanged? 're-rendering' : 'did not re-render')
+    return listChanged || listClicked || listSorted || listDirChanged;
   }
 
   selectColumn(colNumber) {
@@ -77,9 +78,10 @@ class SortableTable extends React.Component {
     const incomingCol = +e.target.classList[1].split('-')[1];
     const incomingField = this.state.dataKeys[incomingCol];
     const originalHeaders = this.state.tableData.headers;
-    const reOrderedDataTable = sortBy(this.state.tableData.stats, (o) => {
+    const ascending = this.state.asc;
+    const reOrderedDataTable = orderBy(this.state.tableData.stats, (o) => {
       return !isNaN(Date.parse(o[incomingField])) ? (new Date(o[incomingField])) : o[incomingField]
-    });
+    }, ascending ? 'asc' : 'desc');
     this.setState({
       sortOnField: incomingField,
       sortOnCol: incomingCol,
@@ -87,6 +89,7 @@ class SortableTable extends React.Component {
         headers: originalHeaders,
         stats: reOrderedDataTable,
       },
+      asc: !ascending,
     })
   }
 

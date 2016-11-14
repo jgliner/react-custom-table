@@ -22,6 +22,7 @@ class SortableTable extends React.Component {
       listHidden: true,
       selected: [],
       colCount: 0,
+      prevOrder: null,
     };
 
     this.sortByColumn = this.sortByColumn.bind(this);
@@ -74,6 +75,16 @@ class SortableTable extends React.Component {
   }
 
   sortByColumn(e) {
+    let prevSorted = document.getElementsByClassName(`sort-${this.state.prevOrder}`)[0];
+    console.log(this.state.prevOrder, prevSorted)
+    if (prevSorted) {
+      prevSorted.classList.remove(`order-asc`);
+      prevSorted.classList.remove(`order-desc`);
+      prevSorted.classList.add(`order-neither`);
+    }
+    
+    e.target.classList.remove(`order-${this.state.asc ? 'desc' : 'asc'}`)
+    e.target.classList.remove('order-neither')
     console.log('STATE', this.state)
     const incomingCol = +e.target.classList[1].split('-')[1];
     const incomingField = this.state.dataKeys[incomingCol];
@@ -90,7 +101,9 @@ class SortableTable extends React.Component {
         stats: reOrderedDataTable,
       },
       asc: !ascending,
+      prevOrder: incomingCol,
     })
+    e.target.classList.add(`order-${this.state.asc ? 'asc' : 'desc'}`)
   }
 
   render() {
@@ -118,7 +131,7 @@ class SortableTable extends React.Component {
                   >
                     <button
                       value={`statsHeader${i}`}
-                      className={`header-sort-button sort-${i}`}
+                      className={`header-sort-button sort-${i} order-neither`}
                       onClick={this.sortByColumn}
                     >
                       {header}

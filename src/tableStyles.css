@@ -24,12 +24,31 @@
   margin-top: 80px;
   background-color: transparent;
 }
-.header-sort-button:after {
+.header-sort-button.order-neither:after {
+  content: "^";
+  display: block;
+  transform: rotate(180deg);
+  line-height: 20px;
+  color: transparent;
+  height: 20px;
+  width: 20px;
+  width: 100%;
+}
+.header-sort-button.order-asc:after {
+  content: "^";
+  display: block;
+  transform: rotate(180deg);
+  line-height: 20px;
+  color: #9EA3A8;
+  height: 20px;
+  width: 20px;
+  width: 100%;
+}
+.header-sort-button.order-desc:after {
   content: "^";
   display: block;
   line-height: 20px;
   color: #9EA3A8;
-  transform: rotate(180deg);
   height: 20px;
   width: 20px;
   width: 100%;

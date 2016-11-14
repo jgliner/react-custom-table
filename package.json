@@ -1,13 +1,15 @@
 {
   "name": "react-custom-table",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "main": "index.js",
   "scripts": {
     "build": "NODE_ENV=production webpack --progress --colors --config ./webpack.config.js",
     "build-example": "NODE_ENV=production webpack --progress --colors --config ./example/webpack.config.js",
     "start": "npm run build && npm run build-example && node example/server/server.js"
   },
+  "description": "A straightforward, minimalistic implementation of a React data table with sorting and column filtering",
   "author": "Jarrett Gliner",
+  "repository": "https://github.com/jgliner/react-custom-table",
   "license": "MIT",
   "dependencies": {
     "babel-core": "^6.18.2",
@@ -17,18 +19,22 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.16.0",
-    "babel-register": "^6.18.0",
+    "babel-register": "^6.18.0"
+  },
+  "devDependencies": {
     "body-parser": "^1.15.2",
     "css-loader": "^0.25.0",
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "^1.0.1",
-    "lodash": "^4.16.6",
     "morgan": "^1.7.0",
     "postcss-loader": "^1.1.1",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.3",
     "webpack-node-externals": "^1.5.4"
+  },
+  "peerDependencies": {
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "lodash": "^4.16.6"
   }
 }

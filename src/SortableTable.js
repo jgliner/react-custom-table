@@ -1,0 +1,93 @@
+require("babel-polyfill");
+require("babel-register");
+
+import React from 'react';
+import { sortBy } from 'lodash';
+
+class SortableTable extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tableData: null,
+      dataKeys: Object.keys(this.props.tableData.stats[0]),
+      sortOnCol: -1,
+      sortOnField: null,
+      asc: true,
+    };
+
+    this.sort = this.sort.bind(this);
+  }
+
+  componentWillMount() {
+    this.setState({
+      tableData: {
+        headers: this.props.tableData.headers,
+        stats: this.props.tableData.stats,
+      },
+    });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state.sortOnCol !== nextState.sortOnCol;
+  }
+
+  sort(e) {
+    console.log('STATE', this.state)
+    const incomingCol = +e.target.classList[1].split('-')[1];
+    const incomingField = this.state.dataKeys[incomingCol];
+    const originalHeaders = this.state.tableData.headers;
+    const reOrderedDataTable = sortBy(this.state.tableData.stats, [incomingField]);
+    console.log(incomingField, incomingCol, originalHeaders, reOrderedDataTable)
+    this.setState({
+      sortOnField: incomingField,
+      sortOnCol: incomingCol,
+      tableData: {
+        headers: originalHeaders,
+        stats: reOrderedDataTable,
+      },
+    })
+  }
+
+  render() {
+    return (
+      <table className="sortable-stats-table">
+        <thead>
+          <tr className="sortable-stats-header-row">
+            {
+              this.state.tableData.headers.map((header, i) => (
+                <td
+                  key={i}
+                  className="sortable-stats-header-cell"
+                >
+                  <button
+                    value={`statsHeader${i}`}
+                    className={`header-sort-button sort-${i}`}
+                    onClick={this.sort}
+                  >
+                    {header}
+                  </button>
+                </td>
+              ))
+            }
+          </tr>
+        </thead>
+        <tbody className="sortable-stats-table-body">
+          {
+            this.state.tableData.stats.map((player, j) => (
+              <tr key={j} className={`sortable-stats-row sortable-stats-row-${j}`}>
+                {
+                  Object.keys(player).map((stat, k) => (
+                    <td key={k} className={`sortable-stats-cell sortable-stats-cell-${k}`}>{player[stat]}</td>
+                  ))
+                }
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    )
+  }
+}
+
+export default SortableTable;

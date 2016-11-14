@@ -2,12 +2,20 @@ require("babel-polyfill");
 require("babel-register");
 
 import React from 'react';
+import { pick } from 'lodash';
 
 class SortableTable extends React.Component {
   constructor(props) {
     super(props);
-  
-    this.state = {};
+
+    this.state = {
+      sortOnRow: 0,
+      asc: true,
+    };
+  }
+
+  sort(e) {
+    console.log(e.target.classList[1].split('-')[1])
   }
 
   render() {
@@ -23,7 +31,8 @@ class SortableTable extends React.Component {
                 >
                   <button
                     value={`statsHeader${i}`}
-                    className="header-sort-button"
+                    className={`header-sort-button sort-${i}`}
+                    onClick={this.sort}
                   >
                     {header}
                   </button>
@@ -35,10 +44,10 @@ class SortableTable extends React.Component {
         <tbody className="sortable-stats-table-body">
           {
             this.props.tableData.stats.map((player, j) => (
-              <tr key={j} className={`sortable-stats-row sortable-stats-row${j}`}>
+              <tr key={j} className={`sortable-stats-row sortable-stats-row-${j}`}>
                 {
                   Object.keys(player).map((stat, k) => (
-                    <td key={k} className={`sortable-stats-cell sortable-stats-cell${k}`}>{player[stat]}</td>
+                    <td key={k} className={`sortable-stats-cell sortable-stats-cell-${k}`}>{player[stat]}</td>
                   ))
                 }
               </tr>

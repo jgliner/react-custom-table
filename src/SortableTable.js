@@ -4,6 +4,8 @@ require("babel-register");
 import React from 'react';
 import { sortBy } from 'lodash';
 
+import SortableTableColumnToggle from './SortableTableColumnToggle.js';
+
 class SortableTable extends React.Component {
   constructor(props) {
     super(props);
@@ -56,7 +58,9 @@ class SortableTable extends React.Component {
         <thead>
           <tr className="column-visibility-selector-row">
             <td className="column-visibility-selector">
-              <select></select>
+              <SortableTableColumnToggle
+                columnHeaders={this.state.tableData.headers}
+              />
             </td>
           </tr>
           <tr className="sortable-stats-header-row">

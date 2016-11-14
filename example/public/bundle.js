@@ -63,7 +63,7 @@
 /******/ 	}
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "60c4a8b997cdbed840c7"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8d68153964bdff9fe8db"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/
@@ -14802,32 +14802,32 @@
 	  headers: ['Band Name', 'Date', 'Location', 'Venue'],
 	  stats: [{
 	    bandName: 'Pendulum',
-	    date: Date(1479080146),
+	    date: new Date(1479080146000).toString(),
 	    location: 'San Francisco, CA',
 	    venue: 'Civic Center'
 	  }, {
 	    bandName: 'Lido',
-	    date: Date(1478142000),
+	    date: new Date(1478142000000).toString(),
 	    location: 'San Francisco, CA',
 	    venue: 'Opera House'
 	  }, {
 	    bandName: 'RL Grime',
-	    date: Date(1480737600),
+	    date: new Date(1480737600000).toString(),
 	    location: 'San Francisco, CA',
 	    venue: '1015 Folsom'
 	  }, {
 	    bandName: 'Oliver',
-	    date: Date(1467514800),
+	    date: new Date(1467514800000).toString(),
 	    location: 'San Francisco, CA',
 	    venue: 'Audio'
 	  }, {
 	    bandName: 'Chet Faker',
-	    date: Date(1469070000),
+	    date: new Date(1469070000000).toString(),
 	    location: 'San Francisco, CA',
 	    venue: 'Civic Center'
 	  }, {
 	    bandName: 'Big Gigantic',
-	    date: Date(1498014000),
+	    date: new Date(1498014000000).toString(),
 	    location: 'Los Angeles, CA',
 	    venue: 'HARD Summer'
 	  }]
@@ -14904,8 +14904,9 @@
 	      var incomingCol = +e.target.classList[1].split('-')[1];
 	      var incomingField = this.state.dataKeys[incomingCol];
 	      var originalHeaders = this.state.tableData.headers;
-	      var reOrderedDataTable = (0, _lodash.sortBy)(this.state.tableData.stats, [incomingField]);
-	      console.log(incomingField, incomingCol, originalHeaders, reOrderedDataTable);
+	      var reOrderedDataTable = (0, _lodash.sortBy)(this.state.tableData.stats, function (o) {
+	        return !isNaN(Date.parse(o[incomingField])) ? new Date(o[incomingField]) : o[incomingField];
+	      });
 	      this.setState({
 	        sortOnField: incomingField,
 	        sortOnCol: incomingCol,

@@ -37,8 +37,9 @@ class SortableTable extends React.Component {
     const incomingCol = +e.target.classList[1].split('-')[1];
     const incomingField = this.state.dataKeys[incomingCol];
     const originalHeaders = this.state.tableData.headers;
-    const reOrderedDataTable = sortBy(this.state.tableData.stats, [incomingField]);
-    console.log(incomingField, incomingCol, originalHeaders, reOrderedDataTable)
+    const reOrderedDataTable = sortBy(this.state.tableData.stats, (o) => {
+      return !isNaN(Date.parse(o[incomingField])) ? (new Date(o[incomingField])) : o[incomingField]
+    });
     this.setState({
       sortOnField: incomingField,
       sortOnCol: incomingCol,

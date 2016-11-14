@@ -63,7 +63,7 @@
 /******/ 	}
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1a535d5c3905d0c8b9f5"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "30e226e14ba99f9cbe6e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/
@@ -5770,8 +5770,9 @@
 	      var incomingCol = +e.target.classList[1].split('-')[1];
 	      var incomingField = this.state.dataKeys[incomingCol];
 	      var originalHeaders = this.state.tableData.headers;
-	      var reOrderedDataTable = (0, _lodash.sortBy)(this.state.tableData.stats, [incomingField]);
-	      console.log(incomingField, incomingCol, originalHeaders, reOrderedDataTable);
+	      var reOrderedDataTable = (0, _lodash.sortBy)(this.state.tableData.stats, function (o) {
+	        return !isNaN(Date.parse(o[incomingField])) ? new Date(o[incomingField]) : o[incomingField];
+	      });
 	      this.setState({
 	        sortOnField: incomingField,
 	        sortOnCol: incomingCol,

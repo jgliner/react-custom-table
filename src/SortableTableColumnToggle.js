@@ -7,31 +7,36 @@ class SortableTableColumnToggle extends React.Component {
     this.state = {
       listHidden: true,
       selected: [],
+      colCount: 0,
     };
 
-    this.select = this.select.bind(this);
+    this.selectColumn = this.selectColumn.bind(this);
     this.showOrHideList = this.showOrHideList.bind(this);
-    this.renderListItems = this.renderListItems.bind(this);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    let listChanged = this.state.selected.length !== nextState.selected.length;
+    let listChanged = this.state.colCount !== nextState.colCount;
     let listClicked = this.state.listHidden !== nextState.listHidden;
-    console.log('listChanged', listChanged, 'listClicked', listClicked, listChanged || listClicked)
+    // console.log(this.state.colCount, '!==', nextState.colCount)
+    console.log(listChanged || listClicked ? 're-rendering' : 'did not re-render')
     return listChanged || listClicked;
   }
 
-  select(colNumber) {
-    let currentState = this.state.selected;
-    if (currentState.indexOf(colNumber) === -1) {
-      currentState.push(colNumber);
+  selectColumn(colNumber) {
+    let selected = this.state.selected;
+    let selectedLen = this.state.selected.length;
+    if (selected.indexOf(colNumber) === -1) {
+      selected.push(colNumber);
+      selectedLen++;
     }
     else {
-      currentState.splice(currentState.indexOf(colNumber), 1);
+      selected.splice(selected.indexOf(colNumber), 1);
+      selectedLen--;
     }
-    console.log(currentState)
+    console.log(selected)
     this.setState({
-      selected: currentState,
+      selected,
+      colCount: selectedLen,
     });
   }
 
@@ -42,29 +47,26 @@ class SortableTableColumnToggle extends React.Component {
     });
   }
 
-  renderListItems() {
-    return this.props.columnHeaders.map((item, i) => (
-      <div
-        key={i}
-        onClick={this.select.bind(null, i)}
-      >
-        <span
-          className={this.state.selected.indexOf(i) ? 'col-selected' : 'col-hidden'}
-        >
-          {item}
-        </span>
-      </div>
-    ));
-  }
-
   render() {
-    const columnCheckboxes = this.renderListItems();
     return (
       <div className="column-toggle">
         <div className="column-toggle-selector">
           <span onClick={this.showOrHideList}>CLICK</span>
           <div className={this.state.listHidden ? 'list-hidden' : 'list-visible'}>
-            {columnCheckboxes}
+            {
+              this.props.columnHeaders.map((item, i) => (
+                <div
+                  key={i}
+                  onClick={this.selectColumn.bind(null, i)}
+                >
+                  <span
+                    className={this.state.selected.indexOf(i) !== -1 ? 'col-hidden' : 'col-showing'}
+                  >
+                    {item}
+                  </span>
+                </div>
+              ))
+            }
           </div>
         </div>
       </div>

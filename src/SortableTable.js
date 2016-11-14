@@ -18,9 +18,14 @@ class SortableTable extends React.Component {
       sortOnCol: -1,
       sortOnField: null,
       asc: true,
+      listHidden: true,
+      selected: [],
+      colCount: 0,
     };
 
     this.sortByColumn = this.sortByColumn.bind(this);
+    this.selectColumn = this.selectColumn.bind(this);
+    this.showOrHideList = this.showOrHideList.bind(this);
   }
 
   componentWillMount() {
@@ -33,7 +38,37 @@ class SortableTable extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.state.sortOnCol !== nextState.sortOnCol;
+    let listChanged = this.state.colCount !== nextState.colCount;
+    let listClicked = this.state.listHidden !== nextState.listHidden;
+    let listSorted =  this.state.sortOnCol !== nextState.sortOnCol;
+    // console.log(this.state.colCount, '!==', nextState.colCount)
+    console.log(listChanged || listClicked || listSorted ? 're-rendering' : 'did not re-render')
+    return listChanged || listClicked || listSorted;
+  }
+
+  selectColumn(colNumber) {
+    let selected = this.state.selected;
+    let selectedLen = this.state.selected.length;
+    if (selected.indexOf(colNumber) === -1) {
+      selected.push(colNumber);
+      selectedLen++;
+    }
+    else {
+      selected.splice(selected.indexOf(colNumber), 1);
+      selectedLen--;
+    }
+    console.log(selected)
+    this.setState({
+      selected,
+      colCount: selectedLen,
+    });
+  }
+
+  showOrHideList() {
+    let listState = this.state.listHidden
+    this.setState({
+      listHidden: !listState,
+    });
   }
 
   sortByColumn(e) {
@@ -61,7 +96,11 @@ class SortableTable extends React.Component {
           <tr className="column-visibility-selector-row">
             <td className="column-visibility-selector">
               <SortableTableColumnToggle
+                showOrHideList={this.showOrHideList}
+                listHidden={this.state.listHidden}
                 columnHeaders={this.state.tableData.headers}
+                selectColumn={this.selectColumn}
+                selected={this.state.selected}
               />
             </td>
           </tr>

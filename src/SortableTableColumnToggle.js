@@ -11,7 +11,12 @@ function SortableTableColumnToggle(props) {
   return (
     <div className="column-toggle">
       <div className="column-toggle-selector">
-        <div className="column-toggle-selector-expand" onClick={showOrHideList}>CLICK</div>
+        <div
+          className="column-toggle-selector-expand"
+          onClick={showOrHideList}
+        >
+          <span>Show / Hide Columns</span>
+        </div>
         <div className={listHidden ? 'list-hidden' : 'list-visible'}>
           {
             columnHeaders.map((item, i) => (

@@ -37,9 +37,6 @@ jspm_packages
 .node_repl_history
 
 # Build folder for Webpack output
-*/*bundle*/*
-dist/bundle.js
-dist/bundle.js.map
 example/public/bundle.js
 example/public/bundle.js.map
 yarn.lock

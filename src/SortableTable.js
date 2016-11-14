@@ -107,20 +107,22 @@ class SortableTable extends React.Component {
           </tr>
           <tr className="sortable-stats-header-row">
             {
-              this.state.tableData.headers.map((header, i) => (
-                <td
-                  key={i}
-                  className="sortable-stats-header-cell"
-                >
-                  <button
-                    value={`statsHeader${i}`}
-                    className={`header-sort-button sort-${i}`}
-                    onClick={this.sortByColumn}
+              this.state.tableData.headers.map((header, i) => {
+                return this.state.selected.indexOf(i) === -1 ?
+                  (<td
+                    key={i}
+                    className="sortable-stats-header-cell"
                   >
-                    {header}
-                  </button>
-                </td>
-              ))
+                    <button
+                      value={`statsHeader${i}`}
+                      className={`header-sort-button sort-${i}`}
+                      onClick={this.sortByColumn}
+                    >
+                      {header}
+                    </button>
+                  </td>) :
+                  (<td key={i} className="sortable-stats-header-cell-hidden"/>)
+              })
             }
           </tr>
         </thead>
@@ -129,9 +131,11 @@ class SortableTable extends React.Component {
             this.state.tableData.stats.map((player, j) => (
               <tr key={j} className={`sortable-stats-row sortable-stats-row-${j}`}>
                 {
-                  Object.keys(player).map((stat, k) => (
-                    <td key={k} className={`sortable-stats-cell sortable-stats-cell-${k}`}>{player[stat]}</td>
-                  ))
+                  Object.keys(player).map((stat, k) => {
+                    return this.state.selected.indexOf(k) === -1 ?
+                      (<td key={k} className={`sortable-stats-cell sortable-stats-cell-${k}`}>{player[stat]}</td>) :
+                      (<td key={k} className="sortable-stats-cell-hidden"/>)
+                  })
                 }
               </tr>
             ))

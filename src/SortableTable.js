@@ -1,6 +1,3 @@
-require("babel-polyfill");
-require("babel-register");
-
 import React from 'react';
 import { orderBy } from 'lodash';
 

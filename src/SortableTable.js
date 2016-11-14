@@ -39,6 +39,17 @@ class SortableTable extends React.Component {
     });
   }
 
+  componentDidMount() {
+    window.addEventListener('click', (e) => {
+      // There's definitely a better way to do this
+      if (e.target.classList[0] !== 'col-hidden') {
+        this.setState({
+          listHidden: true,
+        })
+      }
+    })
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
     let listChanged = this.state.colCount !== nextState.colCount;
     let listClicked = this.state.listHidden !== nextState.listHidden;
@@ -66,7 +77,9 @@ class SortableTable extends React.Component {
     });
   }
 
-  showOrHideList() {
+  showOrHideList(e) {
+    e.stopPropagation();
+    console.log(e.target.parentNode.parentNode)
     let listState = this.state.listHidden
     this.setState({
       listHidden: !listState,

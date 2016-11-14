@@ -6,6 +6,8 @@ import { sortBy } from 'lodash';
 
 import SortableTableColumnToggle from './SortableTableColumnToggle.js';
 
+require('./columnToggleStyles.css');
+
 class SortableTable extends React.Component {
   constructor(props) {
     super(props);

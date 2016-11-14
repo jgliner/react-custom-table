@@ -10,13 +10,15 @@ class SortableTableColumnToggle extends React.Component {
     };
 
     this.select = this.select.bind(this);
-    // this.show = this.show.bind(this);
-    // this.hide = this.hide.bind(this);
+    this.showOrHideList = this.showOrHideList.bind(this);
     this.renderListItems = this.renderListItems.bind(this);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.state.selected.length !== nextState.selected.length;
+    let listChanged = this.state.selected.length !== nextState.selected.length;
+    let listClicked = this.state.listHidden !== nextState.listHidden;
+    console.log('listChanged', listChanged, 'listClicked', listClicked, listChanged || listClicked)
+    return listChanged || listClicked;
   }
 
   select(colNumber) {
@@ -33,13 +35,24 @@ class SortableTableColumnToggle extends React.Component {
     });
   }
 
+  showOrHideList() {
+    let listState = this.state.listHidden
+    this.setState({
+      listHidden: !listState,
+    });
+  }
+
   renderListItems() {
     return this.props.columnHeaders.map((item, i) => (
       <div
         key={i}
         onClick={this.select.bind(null, i)}
       >
-        <span>{item}</span>
+        <span
+          className={this.state.selected.indexOf(i) ? 'col-selected' : 'col-hidden'}
+        >
+          {item}
+        </span>
       </div>
     ));
   }
@@ -49,7 +62,7 @@ class SortableTableColumnToggle extends React.Component {
     return (
       <div className="column-toggle">
         <div className="column-toggle-selector">
-          <span>CLICK</span>
+          <span onClick={this.showOrHideList}>CLICK</span>
           <div className={this.state.listHidden ? 'list-hidden' : 'list-visible'}>
             {columnCheckboxes}
           </div>

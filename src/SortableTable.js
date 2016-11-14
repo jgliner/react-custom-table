@@ -16,7 +16,7 @@ class SortableTable extends React.Component {
       asc: true,
     };
 
-    this.sort = this.sort.bind(this);
+    this.sortByColumn = this.sortByColumn.bind(this);
   }
 
   componentWillMount() {
@@ -32,7 +32,7 @@ class SortableTable extends React.Component {
     return this.state.sortOnCol !== nextState.sortOnCol;
   }
 
-  sort(e) {
+  sortByColumn(e) {
     console.log('STATE', this.state)
     const incomingCol = +e.target.classList[1].split('-')[1];
     const incomingField = this.state.dataKeys[incomingCol];
@@ -54,6 +54,11 @@ class SortableTable extends React.Component {
     return (
       <table className="sortable-stats-table">
         <thead>
+          <tr className="column-visibility-selector-row">
+            <td className="column-visibility-selector">
+              <select></select>
+            </td>
+          </tr>
           <tr className="sortable-stats-header-row">
             {
               this.state.tableData.headers.map((header, i) => (
@@ -64,7 +69,7 @@ class SortableTable extends React.Component {
                   <button
                     value={`statsHeader${i}`}
                     className={`header-sort-button sort-${i}`}
-                    onClick={this.sort}
+                    onClick={this.sortByColumn}
                   >
                     {header}
                   </button>

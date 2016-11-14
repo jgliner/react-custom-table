@@ -60,7 +60,6 @@ class SortableTable extends React.Component {
       selected.splice(selected.indexOf(colNumber), 1);
       selectedLen--;
     }
-    console.log(selected)
     this.setState({
       selected,
       colCount: selectedLen,
@@ -76,7 +75,6 @@ class SortableTable extends React.Component {
 
   sortByColumn(e) {
     let prevSorted = document.getElementsByClassName(`sort-${this.state.prevOrder}`)[0];
-    console.log(this.state.prevOrder, prevSorted)
     if (prevSorted) {
       prevSorted.classList.remove(`order-asc`);
       prevSorted.classList.remove(`order-desc`);

@@ -63,7 +63,7 @@
 /******/ 	}
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "94e15d687786d62f719b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1a535d5c3905d0c8b9f5"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/
@@ -5737,16 +5737,49 @@
 	    var _this = _possibleConstructorReturn(this, (SortableTable.__proto__ || Object.getPrototypeOf(SortableTable)).call(this, props));
 	
 	    _this.state = {
-	      sortOnRow: 0,
+	      tableData: null,
+	      dataKeys: Object.keys(_this.props.tableData.stats[0]),
+	      sortOnCol: -1,
+	      sortOnField: null,
 	      asc: true
 	    };
+	
+	    _this.sort = _this.sort.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(SortableTable, [{
+	    key: "componentWillMount",
+	    value: function componentWillMount() {
+	      this.setState({
+	        tableData: {
+	          headers: this.props.tableData.headers,
+	          stats: this.props.tableData.stats
+	        }
+	      });
+	    }
+	  }, {
+	    key: "shouldComponentUpdate",
+	    value: function shouldComponentUpdate(nextProps, nextState) {
+	      return this.state.sortOnCol !== nextState.sortOnCol;
+	    }
+	  }, {
 	    key: "sort",
 	    value: function sort(e) {
-	      console.log(e.target.classList[1].split('-')[1]);
+	      console.log('STATE', this.state);
+	      var incomingCol = +e.target.classList[1].split('-')[1];
+	      var incomingField = this.state.dataKeys[incomingCol];
+	      var originalHeaders = this.state.tableData.headers;
+	      var reOrderedDataTable = (0, _lodash.sortBy)(this.state.tableData.stats, [incomingField]);
+	      console.log(incomingField, incomingCol, originalHeaders, reOrderedDataTable);
+	      this.setState({
+	        sortOnField: incomingField,
+	        sortOnCol: incomingCol,
+	        tableData: {
+	          headers: originalHeaders,
+	          stats: reOrderedDataTable
+	        }
+	      });
 	    }
 	  }, {
 	    key: "render",
@@ -5762,7 +5795,7 @@
 	          _react2.default.createElement(
 	            "tr",
 	            { className: "sortable-stats-header-row" },
-	            this.props.tableData.headers.map(function (header, i) {
+	            this.state.tableData.headers.map(function (header, i) {
 	              return _react2.default.createElement(
 	                "td",
 	                {
@@ -5785,7 +5818,7 @@
 	        _react2.default.createElement(
 	          "tbody",
 	          { className: "sortable-stats-table-body" },
-	          this.props.tableData.stats.map(function (player, j) {
+	          this.state.tableData.stats.map(function (player, j) {
 	            return _react2.default.createElement(
 	              "tr",
 	              { key: j, className: "sortable-stats-row sortable-stats-row-" + j },

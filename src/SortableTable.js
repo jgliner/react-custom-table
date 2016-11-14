@@ -2,20 +2,51 @@ require("babel-polyfill");
 require("babel-register");
 
 import React from 'react';
-import { pick } from 'lodash';
+import { sortBy } from 'lodash';
 
 class SortableTable extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      sortOnRow: 0,
+      tableData: null,
+      dataKeys: Object.keys(this.props.tableData.stats[0]),
+      sortOnCol: -1,
+      sortOnField: null,
       asc: true,
     };
+
+    this.sort = this.sort.bind(this);
+  }
+
+  componentWillMount() {
+    this.setState({
+      tableData: {
+        headers: this.props.tableData.headers,
+        stats: this.props.tableData.stats,
+      },
+    });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state.sortOnCol !== nextState.sortOnCol;
   }
 
   sort(e) {
-    console.log(e.target.classList[1].split('-')[1])
+    console.log('STATE', this.state)
+    const incomingCol = +e.target.classList[1].split('-')[1];
+    const incomingField = this.state.dataKeys[incomingCol];
+    const originalHeaders = this.state.tableData.headers;
+    const reOrderedDataTable = sortBy(this.state.tableData.stats, [incomingField]);
+    console.log(incomingField, incomingCol, originalHeaders, reOrderedDataTable)
+    this.setState({
+      sortOnField: incomingField,
+      sortOnCol: incomingCol,
+      tableData: {
+        headers: originalHeaders,
+        stats: reOrderedDataTable,
+      },
+    })
   }
 
   render() {
@@ -24,7 +55,7 @@ class SortableTable extends React.Component {
         <thead>
           <tr className="sortable-stats-header-row">
             {
-              this.props.tableData.headers.map((header, i) => (
+              this.state.tableData.headers.map((header, i) => (
                 <td
                   key={i}
                   className="sortable-stats-header-cell"
@@ -43,7 +74,7 @@ class SortableTable extends React.Component {
         </thead>
         <tbody className="sortable-stats-table-body">
           {
-            this.props.tableData.stats.map((player, j) => (
+            this.state.tableData.stats.map((player, j) => (
               <tr key={j} className={`sortable-stats-row sortable-stats-row-${j}`}>
                 {
                   Object.keys(player).map((stat, k) => (

@@ -1,5 +1,5 @@
 {
-  "name": "react-custom-table",
+  "name": "react-sortable-stats-table",
   "version": "0.1.0",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "description": "A straightforward, minimalistic implementation of a React data table with sorting and column filtering",
   "author": "Jarrett Gliner",
-  "repository": "https://github.com/jgliner/react-custom-table",
+  "repository": "https://github.com/jgliner/react-sortable-stats-table",
   "license": "MIT",
   "devDependencies": {
     "body-parser": "^1.15.2",

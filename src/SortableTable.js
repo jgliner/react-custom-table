@@ -52,8 +52,7 @@ class SortableTable extends React.Component {
     let listClicked = this.state.listHidden !== nextState.listHidden;
     let listSorted =  this.state.sortOnCol !== nextState.sortOnCol;
     let listDirChanged =  this.state.asc !== nextState.asc;
-    // console.log(this.state.colCount, '!==', nextState.colCount)
-    console.log(listChanged || listClicked || listSorted || listDirChanged? 're-rendering' : 'did not re-render')
+
     return listChanged || listClicked || listSorted || listDirChanged;
   }
 
@@ -76,7 +75,6 @@ class SortableTable extends React.Component {
 
   showOrHideList(e) {
     e.stopPropagation();
-    console.log(e.target.parentNode.parentNode)
     let listState = this.state.listHidden
     this.setState({
       listHidden: !listState,
@@ -90,10 +88,9 @@ class SortableTable extends React.Component {
       prevSorted.classList.remove(`order-desc`);
       prevSorted.classList.add(`order-neither`);
     }
-    
+
     e.target.classList.remove(`order-${this.state.asc ? 'desc' : 'asc'}`)
     e.target.classList.remove('order-neither')
-    console.log('STATE', this.state)
     const incomingCol = +e.target.classList[1].split('-')[1];
     const incomingField = this.state.dataKeys[incomingCol];
     const originalHeaders = this.state.tableData.headers;

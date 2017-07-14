@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "36ef0be609cf7ea799d1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "fd7df6f27a754ec93610"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -1481,7 +1481,7 @@
 
 
 	// module
-	exports.push([module.id, ".sortable-stats-table {\n  width: 100%;\n  color: #1D2124;\n  border-collapse: collapse;\n  font-size: 12px;\n  text-align: center;\n}\n\n.sortable-stats-header-row {\n  border-bottom: 1px solid #E3E7EA;\n}\n.header-sort-button {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  outline: none !important;\n  font-family: 'industry-inc-base';\n  border: none;\n  border-top: 5px solid transparent;\n  cursor: pointer;\n  width: 100%;\n  font-size: 10px;\n  padding-bottom: 10px;\n  margin-top: 80px;\n  background-color: transparent;\n}\n.header-sort-button.order-neither:after {\n  content: \"^\";\n  display: block;\n  transform: rotate(180deg);\n  line-height: 20px;\n  color: transparent;\n  height: 20px;\n  width: 20px;\n  width: 100%;\n}\n.header-sort-button.order-asc:after {\n  content: \"^\";\n  display: block;\n  transform: rotate(180deg);\n  line-height: 20px;\n  color: #9EA3A8;\n  height: 20px;\n  width: 20px;\n  width: 100%;\n}\n.header-sort-button.order-desc:after {\n  content: \"^\";\n  display: block;\n  line-height: 20px;\n  color: #9EA3A8;\n  height: 20px;\n  width: 20px;\n  width: 100%;\n}\n.header-sort-button:hover {\n  border-top: 5px solid #FFE613;\n}\n\n.sortable-stats-row {\n  border-bottom: 1px solid #E3E7EA;\n}\n.sortable-stats-cell {\n  color: #9EA3A8;\n}\n.sortable-stats-row .sortable-stats-cell-0 {\n  font-family: 'industry-inc-base', sans-serif;\n  padding: 20px;\n  color: #4D4D4D;\n  border-left: 5px solid transparent;\n}\n.sortable-stats-row .sortable-stats-cell-1,\n.sortable-stats-row .sortable-stats-cell-2 {\n  font-family: 'usual', sans-serif;\n  color: #4D4D4D;\n}\n.sortable-stats-row .sortable-stats-cell-2 {\n  font-family: 'usual', sans-serif;\n}\n.sortable-stats-row:hover {\n  background-color: #E3E7EA;\n}\n.sortable-stats-row:hover .sortable-stats-cell-0 {\n  border-left: 5px solid #FFE613;\n}\n\n.sortable-stats-cell {\n  padding: 27px 0;\n}\n.sortable-stats-row:last-child {\n  border: none;\n  padding: 0;\n}\n\n/* Conditional Classes */\n\n.sortable-stats-header-cell-hidden,\n.sortable-stats-cell-hidden {\n  display: none;\n}\n", ""]);
+	exports.push([module.id, ".sortable-stats-table {\n  width: 100%;\n  border-collapse: collapse;\n  text-align: center;\n}\n\n.sortable-stats-header-row {\n  border-bottom: 1px solid #E3E7EA;\n}\n.header-sort-button {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  outline: none !important;\n  border: none;\n  border-top: 5px solid transparent;\n  cursor: pointer;\n  width: 100%;\n  padding-bottom: 10px;\n  margin-top: 80px;\n  background-color: transparent;\n}\n.header-sort-button.order-neither:after {\n  content: \"^\";\n  display: block;\n  transform: rotate(180deg);\n  line-height: 20px;\n  color: transparent;\n  height: 20px;\n  width: 20px;\n  width: 100%;\n}\n.header-sort-button.order-asc:after {\n  content: \"^\";\n  display: block;\n  transform: rotate(180deg);\n  line-height: 20px;\n  color: #9EA3A8;\n  height: 20px;\n  width: 20px;\n  width: 100%;\n}\n.header-sort-button.order-desc:after {\n  content: \"^\";\n  display: block;\n  line-height: 20px;\n  color: #9EA3A8;\n  height: 20px;\n  width: 20px;\n  width: 100%;\n}\n.header-sort-button:hover {\n  border-top: 5px solid #FFE613;\n}\n\n.sortable-stats-row {\n  border-bottom: 1px solid #E3E7EA;\n}\n.sortable-stats-cell {\n}\n.sortable-stats-row .sortable-stats-cell-0 {\n  padding: 20px;\n  border-left: 5px solid transparent;\n}\n.sortable-stats-row .sortable-stats-cell-1,\n.sortable-stats-row .sortable-stats-cell-2 {\n  font-family: 'usual', sans-serif;\n}\n.sortable-stats-row .sortable-stats-cell-2 {\n  font-family: 'usual', sans-serif;\n}\n.sortable-stats-row:hover {\n  background-color: #E3E7EA;\n}\n.sortable-stats-row:hover .sortable-stats-cell-0 {\n  border-left: 5px solid #FFE613;\n}\n\n.sortable-stats-cell {\n  padding: 27px 0;\n}\n.sortable-stats-row:last-child {\n  border: none;\n  padding: 0;\n}\n\n/* Conditional Classes */\n\n.sortable-stats-header-cell-hidden,\n.sortable-stats-cell-hidden {\n  display: none;\n}\n", ""]);
 
 	// exports
 
@@ -2997,7 +2997,6 @@
 	      var _this2 = this;
 
 	      window.addEventListener('click', function (e) {
-	        // There's definitely a better way to do this
 	        if (e.target.classList[0] !== 'col-hidden') {
 	          _this2.setState({
 	            listHidden: true

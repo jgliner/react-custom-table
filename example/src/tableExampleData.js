@@ -1,46 +1,61 @@
-module.exports = {
+import React from 'react';
+
+export default {
   headers: [
-    'Band Name',
-    'Date',
-    'Location',
-    'Venue',
+    'Rank',
+    'Team',
+    'W',
+    'L',
+    '% Games Won',
   ],
   stats: [
     {
-      bandName: 'Pendulum',
-      date: (new Date(1479080146000)).toString(),
-      location: 'San Francisco, CA',
-      venue: 'Civic Center',
+      rank: 4,
+      team: (
+        <div className="team-name">
+          <img src="./assets/sd.png" alt="sd" />
+          <span>San Diego Chargers</span>
+        </div>
+      ),
+      wins: 5,
+      losses: 11,
+      win_percentage: `${((5 / 16) * 100).toFixed(2)}%`,
     },
     {
-      bandName: 'Lido',
-      date: (new Date(1478142000000)).toString(),
-      location: 'San Francisco, CA',
-      venue: 'Opera House',
+      rank: 3,
+      team: (
+        <div className="team-name">
+          <img src="./assets/den.png" alt="den" />
+          <span>Denver Broncos</span>
+        </div>
+      ),
+      wins: 9,
+      losses: 7,
+      win_percentage: `${((9 / 16) * 100).toFixed(2)}%`,
     },
     {
-      bandName: 'RL Grime',
-      date: (new Date(1480737600000)).toString(),
-      location: 'San Francisco, CA',
-      venue: '1015 Folsom',
+      rank: 2,
+      team: (
+        <div className="team-name">
+          <img src="./assets/oak.png" alt="oak" />
+          <span>Oakland Raiders</span>
+        </div>
+      ),
+      wins: 12,
+      losses: 4,
+      win_percentage: `${((12 / 16) * 100).toFixed(2)}%`,
     },
     {
-      bandName: 'Oliver',
-      date: (new Date(1467514800000)).toString(),
-      location: 'San Francisco, CA',
-      venue: 'Audio',
-    },
-    {
-      bandName: 'Chet Faker',
-      date: (new Date(1469070000000)).toString(),
-      location: 'San Francisco, CA',
-      venue: 'Civic Center',
-    },
-    {
-      bandName: 'Big Gigantic',
-      date: (new Date(1498014000000)).toString(),
-      location: 'Los Angeles, CA',
-      venue: 'HARD Summer',
+      rank: 1,
+      team: (
+        <div className="team-name">
+          <img src="./assets/kc.png" alt="kc" />
+          <span>Kansas City Chiefs</span>
+        </div>
+      ),
+      wins: 12,
+      losses: 4,
+      win_percentage: `${((12 / 16) * 100).toFixed(2)}%`,
     },
   ],
 };

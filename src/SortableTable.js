@@ -38,7 +38,6 @@ class SortableTable extends React.Component {
 
   componentDidMount() {
     window.addEventListener('click', (e) => {
-      // There's definitely a better way to do this
       if (e.target.classList[0] !== 'col-hidden') {
         this.setState({
           listHidden: true,

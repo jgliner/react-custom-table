@@ -13,7 +13,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="example-parent-component">
-        <h1>Upcoming Shows</h1>
+        <h1>2016 AFC West</h1>
         <br />
         <SortableTable tableData={tableExampleData} />
       </div>
